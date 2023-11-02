@@ -1,6 +1,6 @@
 CREATE DATABASE onzemais;
 
-use onzemais;
+USE onzemais;
 
 CREATE TABLE
     espaco_esportivo (
@@ -67,8 +67,8 @@ CREATE Table
         colete_id INT PRIMARY key,
         cor VARCHAR(255),
         quantidade INT,
-        emprasa_cnpj VARCHAR(255),
-        Foreign Key (empresa_cnpj) REFERENCES empresa(empresa_cnpj)
+        empresa_cnpj VARCHAR(255),
+        Foreign Key (empresa_cnpj) REFERENCES empresa(cnpj)
     );
 
 CREATE TABLE
@@ -83,5 +83,7 @@ CREATE TABLE
 CREATE TABLE
     narracao(
         narracao_id INT PRIMARY KEY,
-        narradores VARCHAR(255)
+        narradores VARCHAR(255),
+        locacao_id INT,
+        FOREIGN KEY (locacao_id) REFERENCES locacao(locacao_id)
     );
