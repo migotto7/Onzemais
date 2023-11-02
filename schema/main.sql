@@ -31,7 +31,7 @@ CREATE TABLE
         email VARCHAR(255),
         nome VARCHAR(255),
         empresa_cnpj VARCHAR(255),
-        FOREIGN KEY (cnpj) REFERENCES empresa(cnpj)
+        FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj)
     );
 
 CREATE TABLE
