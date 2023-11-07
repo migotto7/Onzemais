@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from ..models import EspacoEsportivo
+from base.models import EspacoEsportivo
 from ..serializers.espaco_esportivo import EspacoEsportivoSerializer
 
 

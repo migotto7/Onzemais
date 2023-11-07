@@ -47,22 +47,3 @@ class Partida(models.Model):
     locacao = models.ForeignKey(Locacao, on_delete=models.CASCADE)
     espaco = models.ForeignKey(EspacoEsportivo, on_delete=models.CASCADE)
     campeonato = models.ForeignKey(Campeonato, on_delete=models.CASCADE)
-
-
-class Colete(models.Model):
-    colete_id = models.IntegerField(primary_key=True)
-    cor = models.CharField(max_length=255)
-    quantidade = models.IntegerField()
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-
-
-class LocacaoColete(models.Model):
-    locacao_colete_id = models.IntegerField(primary_key=True)
-    locacao = models.ForeignKey(Locacao, on_delete=models.CASCADE)
-    colete = models.ForeignKey(Colete, on_delete=models.CASCADE)
-
-
-class Narracao(models.Model):
-    narracao_id = models.IntegerField(primary_key=True)
-    narradores = models.CharField(max_length=255)
-    locacao = models.ForeignKey(Locacao, on_delete=models.CASCADE)
