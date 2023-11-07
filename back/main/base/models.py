@@ -2,7 +2,7 @@ from django.db import models
 
 
 class EspacoEsportivo(models.Model):
-    espaco_id = models.IntegerField(primary_key=True)
+    espaco_id = models.AutoField(primary_key=True, )
     tipo_espaco = models.CharField(max_length=255)
     tamanho = models.CharField(max_length=255)
     capacidade = models.IntegerField()
@@ -21,7 +21,7 @@ class Empresa(models.Model):
 
 
 class Cliente(models.Model):
-    cliente_id = models.IntegerField(primary_key=True)
+    cliente_id = models.AutoField(primary_key=True)
     senha = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     nome = models.CharField(max_length=255)
@@ -29,7 +29,7 @@ class Cliente(models.Model):
 
 
 class Locacao(models.Model):
-    locacao_id = models.IntegerField(primary_key=True)
+    locacao_id = models.AutoField(primary_key=True)
     data_locacao = models.DateField()
     valor = models.IntegerField()
     foi_pago = models.BooleanField()
@@ -37,12 +37,12 @@ class Locacao(models.Model):
 
 
 class Campeonato(models.Model):
-    campeonato_id = models.IntegerField(primary_key=True)
+    campeonato_id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
 
 
 class Partida(models.Model):
-    partida_id = models.IntegerField(primary_key=True)
+    partida_id = models.AutoField(primary_key=True)
     duracao_horas = models.IntegerField()
     locacao = models.ForeignKey(Locacao, on_delete=models.CASCADE)
     espaco = models.ForeignKey(EspacoEsportivo, on_delete=models.CASCADE)
