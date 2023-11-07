@@ -25,13 +25,14 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    cliente(
+    usuario(
         cliente_id INT PRIMARY KEY,
         senha VARCHAR(255),
         email VARCHAR(255),
         nome VARCHAR(255),
         empresa_cnpj VARCHAR(255),
-        FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj)
+        FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj),
+        perfil VARCHAR(255)
     );
 
 CREATE TABLE
