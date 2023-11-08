@@ -2,7 +2,7 @@ from django.db import models
 
 
 class EspacoEsportivo(models.Model):
-    espaco_id = models.AutoField(primary_key=True, )
+    espaco_id = models.AutoField(primary_key=True)
     tipo_espaco = models.CharField(max_length=255)
     tamanho = models.CharField(max_length=255)
     capacidade = models.IntegerField()
@@ -20,8 +20,8 @@ class Empresa(models.Model):
     espaco = models.ForeignKey(EspacoEsportivo, on_delete=models.CASCADE)
 
 
-class Cliente(models.Model):
-    cliente_id = models.AutoField(primary_key=True)
+class Usuario(models.Model):
+    usuario_id = models.AutoField(primary_key=True)
     senha = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     nome = models.CharField(max_length=255)
@@ -33,7 +33,7 @@ class Locacao(models.Model):
     data_locacao = models.DateField()
     valor = models.IntegerField()
     foi_pago = models.BooleanField()
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 
 class Campeonato(models.Model):
