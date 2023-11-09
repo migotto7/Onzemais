@@ -17,7 +17,8 @@ class Empresa(models.Model):
     rua_endereco = models.CharField(max_length=255)
     horario_comercial = models.CharField(max_length=255)
     nome = models.CharField(max_length=255)
-    espaco = models.ForeignKey(EspacoEsportivo, on_delete=models.CASCADE)
+    espaco = models.ForeignKey(
+        EspacoEsportivo, on_delete=models.CASCADE, null=True)
 
 
 class Usuario(models.Model):
@@ -25,7 +26,7 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     nome = models.CharField(max_length=255)
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)
 
 
 class Locacao(models.Model):
@@ -33,7 +34,7 @@ class Locacao(models.Model):
     data_locacao = models.DateField()
     valor = models.IntegerField()
     foi_pago = models.BooleanField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
 
 
 class Campeonato(models.Model):
@@ -44,6 +45,8 @@ class Campeonato(models.Model):
 class Partida(models.Model):
     partida_id = models.AutoField(primary_key=True)
     duracao_horas = models.IntegerField()
-    locacao = models.ForeignKey(Locacao, on_delete=models.CASCADE)
-    espaco = models.ForeignKey(EspacoEsportivo, on_delete=models.CASCADE)
-    campeonato = models.ForeignKey(Campeonato, on_delete=models.CASCADE)
+    locacao = models.ForeignKey(Locacao, on_delete=models.CASCADE, null=True)
+    espaco = models.ForeignKey(
+        EspacoEsportivo, on_delete=models.CASCADE, null=True)
+    campeonato = models.ForeignKey(
+        Campeonato, on_delete=models.CASCADE, null=True)
