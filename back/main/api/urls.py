@@ -6,6 +6,7 @@ from .views.usuario import *
 from .views.locacao import *
 from .views.campeonato import *
 from .views.partida import *
+from .views.relatorios import *
 
 urlpatterns = [
     path('espacos/', indexEspacoEsportivos, name='index-EspacoEsportivos'),
@@ -55,4 +56,7 @@ urlpatterns = [
          name='update-partida'),
     path('espacos/delete/<int:pk>/', deletePartida,
          name='delete-partida'),
+
+    path('relatorios/<str:pk>', showRelatorio, name='index-relatios'),
+
 ]

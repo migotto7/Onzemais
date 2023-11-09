@@ -35,6 +35,7 @@ class Locacao(models.Model):
     valor = models.IntegerField()
     foi_pago = models.BooleanField()
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)
 
 
 class Campeonato(models.Model):
