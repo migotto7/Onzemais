@@ -20,4 +20,8 @@
   - Config credencials (back/main/main/settings)
 
 - Run migrations
+
   - `python manage.py migrate`
+
+- Create admin user
+  - python manage.py createsuperuser --email admin@example.com --username admin
