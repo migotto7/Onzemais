@@ -1,8 +1,18 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import Partida
+from base.models import Locacao
 from ..serializers.partida import PartidaSerializer
 from django.core.exceptions import ObjectDoesNotExist
+
+
+def calcValor(horas, locacaoId):
+    try:
+        locacao = Locacao.objects.get(pk=locacaoId)
+        valor = locacao.empresa.valor_hora * horas
+        return valor
+    except ObjectDoesNotExist:
+        return Response({'error': 'Locacao not found'}, status=404)
 
 
 @api_view(['GET'])
@@ -24,6 +34,9 @@ def showPartida(request, pk):
 
 @api_view(['POST'])
 def addPartida(request):
+    request.data['valor'] = calcValor(
+        request.data['duracao_horas'], request.data['locacao'])
+
     serializer = PartidaSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
