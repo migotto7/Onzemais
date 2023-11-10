@@ -39,7 +39,7 @@ class Usuario(models.Model):
 
 class Locacao(models.Model):
     id = models.AutoField(primary_key=True)
-    data_locacao = models.DateField()
+    data_inicio_locacao = models.DateTimeField()
     foi_pago = models.BooleanField()
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)
