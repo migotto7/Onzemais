@@ -6,6 +6,8 @@ from .views.usuario import *
 from .views.locacao import *
 from .views.campeonato import *
 from .views.partida import *
+from .views.colete import *
+from .views.aluguelColete import *
 from .views.relatorios import *
 
 urlpatterns = [
@@ -56,6 +58,23 @@ urlpatterns = [
          name='update-partida'),
     path('partidas/delete/<int:pk>', deletePartida,
          name='delete-partida'),
+
+    path('coletes/', indexColetes, name='index-coletes'),
+    path('coletes/<int:pk>', showColete, name='show-colete'),
+    path('coletes/add/', addColete, name='create-colete'),
+    path('coletes/update/<int:pk>', updateColete,
+         name='update-colete'),
+    path('coletes/delete/<int:pk>', deleteColete,
+         name='delete-colete'),
+
+    path('aluguelColetes/', indexAluguelColetes, name='index-aluguelColete'),
+    path('aluguelColetes/<int:pk>', showAluguelColete, name='show-aluguel_colete'),
+    path('aluguelColetes/add/', addAluguelColete, name='create-aluguel_colete'),
+    path('aluguelColetes/update/<int:pk>', updateAluguelColete,
+         name='update-aluguel_colete'),
+    path('aluguelColetes/delete/<int:pk>', deleteAluguelColete,
+         name='delete-aluguel_colete'),
+
 
     path('relatorios/<str:pk>', showRelatorio, name='index-relatios'),
 
