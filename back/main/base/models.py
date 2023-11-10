@@ -19,6 +19,7 @@ class Empresa(models.Model):
     nome = models.CharField(max_length=255)
     espaco = models.ForeignKey(
         EspacoEsportivo, on_delete=models.CASCADE, null=True)
+    valor_hora = models.IntegerField()
 
 
 class Usuario(models.Model):
@@ -51,3 +52,4 @@ class Partida(models.Model):
         EspacoEsportivo, on_delete=models.CASCADE, null=True)
     campeonato = models.ForeignKey(
         Campeonato, on_delete=models.CASCADE, null=True)
+    valor = models.IntegerField()
