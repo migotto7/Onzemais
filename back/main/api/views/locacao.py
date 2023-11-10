@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import Locacao
 from ..serializers.locacao import LocacaoSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @api_view(['GET'])
@@ -14,12 +15,11 @@ def indexLocacoes(request):
 @api_view(['GET'])
 def showLocacao(request, pk):
     try:
-        Locacao = Locacao.objects.get(pk=pk)
-    except Locacao.DoesNotExist:
+        locacao = Locacao.objects.get(pk=pk)
+        serializer = LocacaoSerializer(locacao)
+        return Response(serializer.data)
+    except ObjectDoesNotExist:
         return Response({'error': 'Locacao not found'}, status=404)
-
-    serializer = LocacaoSerializer(Locacao)
-    return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -34,23 +34,23 @@ def addLocacao(request):
 @api_view(['PUT'])
 def updateLocacao(request, pk):
     try:
-        Locacao = Locacao.objects.get(pk=pk)
-    except Locacao.DoesNotExist:
-        return Response({'error': 'Locacao not found'}, status=404)
+        locacao = Locacao.objects.get(pk=pk)
+        serializer = LocacaoSerializer(locacao, data=request.data)
 
-    serializer = LocacaoSerializer(Locacao, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=400)
+    except ObjectDoesNotExist:
+        return Response({'error': 'Locacao not found'}, status=404)
 
 
 @api_view(['DELETE'])
 def deleteLocacao(request, pk):
     try:
-        Locacao = Locacao.objects.get(pk=pk)
+        locacao = Locacao.objects.get(pk=pk)
+        locacao.delete()
+        return Response(status=204)
     except Locacao.DoesNotExist:
         return Response({'error': 'Locacao not found'}, status=404)
-
-    Locacao.delete()
-    return Response(status=204)

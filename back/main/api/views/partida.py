@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import Partida
 from ..serializers.partida import PartidaSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @api_view(['GET'])
@@ -14,12 +15,11 @@ def indexPartidas(request):
 @api_view(['GET'])
 def showPartida(request, pk):
     try:
-        Partida = Partida.objects.get(pk=pk)
-    except Partida.DoesNotExist:
+        partida = Partida.objects.get(pk=pk)
+        serializer = PartidaSerializer(partida)
+        return Response(serializer.data)
+    except ObjectDoesNotExist:
         return Response({'error': 'Partida not found'}, status=404)
-
-    serializer = PartidaSerializer(Partida)
-    return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -34,23 +34,21 @@ def addPartida(request):
 @api_view(['PUT'])
 def updatePartida(request, pk):
     try:
-        Partida = Partida.objects.get(pk=pk)
-    except Partida.DoesNotExist:
+        partida = Partida.objects.get(pk=pk)
+        serializer = PartidaSerializer(partida, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    except ObjectDoesNotExist:
         return Response({'error': 'Partida not found'}, status=404)
-
-    serializer = PartidaSerializer(Partida, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
 
 
 @api_view(['DELETE'])
 def deletePartida(request, pk):
     try:
-        Partida = Partida.objects.get(pk=pk)
-    except Partida.DoesNotExist:
+        partida = Partida.objects.get(pk=pk)
+        partida.delete()
+        return Response(status=204)
+    except ObjectDoesNotExist:
         return Response({'error': 'Partida not found'}, status=404)
-
-    Partida.delete()
-    return Response(status=204)

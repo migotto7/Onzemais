@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import Usuario
 from ..serializers.usuario import UsuarioSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @api_view(['GET'])
@@ -14,12 +15,11 @@ def indexUsuarios(request):
 @api_view(['GET'])
 def showUsuario(request, pk):
     try:
-        Usuario = Usuario.objects.get(pk=pk)
-    except Usuario.DoesNotExist:
+        usuario = Usuario.objects.get(pk=pk)
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data)
+    except ObjectDoesNotExist:
         return Response({'error': 'Usuario not found'}, status=404)
-
-    serializer = UsuarioSerializer(Usuario)
-    return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -34,23 +34,21 @@ def addUsuario(request):
 @api_view(['PUT'])
 def updateUsuario(request, pk):
     try:
-        Usuario = Usuario.objects.get(pk=pk)
-    except Usuario.DoesNotExist:
+        usuario = Usuario.objects.get(pk=pk)
+        serializer = UsuarioSerializer(usuario, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    except ObjectDoesNotExist:
         return Response({'error': 'Usuario not found'}, status=404)
-
-    serializer = UsuarioSerializer(Usuario, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
 
 
 @api_view(['DELETE'])
 def deleteUsuario(request, pk):
     try:
-        Usuario = Usuario.objects.get(pk=pk)
-    except Usuario.DoesNotExist:
+        usuario = Usuario.objects.get(pk=pk)
+        usuario.delete()
+        return Response(status=204)
+    except ObjectDoesNotExist:
         return Response({'error': 'Usuario not found'}, status=404)
-
-    Usuario.delete()
-    return Response(status=204)

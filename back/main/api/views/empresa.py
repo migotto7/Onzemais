@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import Empresa
 from ..serializers.empresa import EmpresaSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @api_view(['GET'])
@@ -14,12 +15,11 @@ def indexEmpresas(request):
 @api_view(['GET'])
 def showEmpresa(request, pk):
     try:
-        Empresa = Empresa.objects.get(pk=pk)
-    except Empresa.DoesNotExist:
+        empresa = Empresa.objects.get(pk=pk)
+        serializer = EmpresaSerializer(empresa)
+        return Response(serializer.data)
+    except ObjectDoesNotExist:
         return Response({'error': 'Empresa not found'}, status=404)
-
-    serializer = EmpresaSerializer(Empresa)
-    return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -34,23 +34,21 @@ def addEmpresa(request):
 @api_view(['PUT'])
 def updateEmpresa(request, pk):
     try:
-        Empresa = Empresa.objects.get(pk=pk)
-    except Empresa.DoesNotExist:
+        empresa = Empresa.objects.get(pk=pk)
+        serializer = EmpresaSerializer(empresa, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    except ObjectDoesNotExist:
         return Response({'error': 'Empresa not found'}, status=404)
-
-    serializer = EmpresaSerializer(Empresa, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
 
 
 @api_view(['DELETE'])
 def deleteEmpresa(request, pk):
     try:
-        Empresa = Empresa.objects.get(pk=pk)
-    except Empresa.DoesNotExist:
+        empresa = Empresa.objects.get(pk=pk)
+        empresa.delete()
+        return Response(status=204)
+    except ObjectDoesNotExist:
         return Response({'error': 'Empresa not found'}, status=404)
-
-    Empresa.delete()
-    return Response(status=204)
