@@ -1,0 +1,26 @@
+### FindAll
+GET http://localhost:3000/locacoes HTTP/1.1
+
+### FindOne
+GET http://localhost:3000/locacoes/1 HTTP/1.1
+
+### Create
+POST http://localhost:3000/locacoes HTTP/1.1
+Content-Type:  application/json
+
+{
+    "foi_pago": false,
+    "usuarioId": 1,
+    "empresa_id": 2
+}
+
+### Update
+PATCH http://localhost:3000/locacoes/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "foi_pago": false
+}
+
+### Remove
+DELETE http://localhost:3000/locacoes/1 HTTP/1.1
