@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, Matches } from 'class-validator';
+import { RegExHelper } from 'src/helpers/regex.helper';
 
 export class CreateEmpresaDto {
   @IsString()
@@ -23,10 +24,12 @@ export class CreateEmpresaDto {
 
   @IsString()
   @IsNotEmpty()
+  @Matches(RegExHelper.hours)
   horario_comercial_inicio: string;
 
   @IsString()
   @IsNotEmpty()
+  @Matches(RegExHelper.hours)
   horario_comercial_final: string;
 
   @IsString()

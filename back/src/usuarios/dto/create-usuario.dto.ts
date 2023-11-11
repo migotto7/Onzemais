@@ -4,11 +4,12 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
 } from 'class-validator';
+import { RegExHelper } from 'src/helpers/regex.helper';
 
 export class CreateUsuarioDto {
-  @IsString()
-  @IsNotEmpty()
+  @Matches(RegExHelper.password)
   senha: string;
 
   @IsEmail()

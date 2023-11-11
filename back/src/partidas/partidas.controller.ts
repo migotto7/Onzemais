@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   ParseIntPipe,
   Delete,
@@ -31,7 +31,7 @@ export class PartidasController {
     return this.partidasService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updatePartidaDto: UpdatePartidaDto,

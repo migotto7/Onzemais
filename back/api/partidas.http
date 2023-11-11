@@ -9,7 +9,7 @@ POST http://localhost:3000/partidas HTTP/1.1
 Content-Type:  application/json
 
 {
-    "data_inicio_locacao": "2023-11-11T21:49:58.543Z",
+    "data_inicio_locacao": "2023-11-19T21:49:58.543Z",
     "data_final_locacao": "2023-11-11T23:49:58.543Z",
     "locacaoId": 2,
     "espacoId": 2,
@@ -17,7 +17,7 @@ Content-Type:  application/json
 }
 
 ### Update
-PATCH http://localhost:3000/partidas/1 HTTP/1.1
+PUT http://localhost:3000/partidas/1 HTTP/1.1
 Content-Type: application/json
 
 {

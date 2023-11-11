@@ -3,10 +3,10 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { AlugueisColetesService } from './alugueis_coletes.service';
 import { CreateAlugueisColeteDto } from './dto/create-alugueis_colete.dto';
@@ -33,7 +33,7 @@ export class AlugueisColetesController {
     return this.alugueisColetesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateAlugueisColeteDto: UpdateAlugueisColeteDto,

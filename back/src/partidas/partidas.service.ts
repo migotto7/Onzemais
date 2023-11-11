@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePartidaDto } from './dto/create-partida.dto';
 import { UpdatePartidaDto } from './dto/update-partida.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -6,6 +6,7 @@ import { LocacoesService } from 'src/locacoes/locacoes.service';
 import { EspacosEsportivosService } from 'src/espacos-esportivos/espacos-esportivos.service';
 import { CampeonatosService } from 'src/campeonatos/campeonatos.service';
 import DateUtil from 'src/utils/date';
+import ValidationUtil from 'src/utils/validation';
 
 @Injectable()
 export class PartidasService {
@@ -24,6 +25,23 @@ export class PartidasService {
 
     if (createPartidaDto?.campeonatoId) {
       await this.campeonatosService.findOne(createPartidaDto.campeonatoId);
+    }
+
+    if (!ValidationUtil.isFutureDate(createPartidaDto.data_inicio_locacao)) {
+      throw new BadRequestException(
+        'Data Inicio não é maior que a data de hoje!',
+      );
+    }
+
+    if (
+      !ValidationUtil.isCompareDate(
+        createPartidaDto.data_inicio_locacao,
+        createPartidaDto.data_final_locacao,
+      )
+    ) {
+      throw new BadRequestException(
+        'Data Final deve ser maior que a data inicial!',
+      );
     }
 
     const duracao_horas = DateUtil.calculateHourDifference(
@@ -51,6 +69,23 @@ export class PartidasService {
     const espacoEsportivo = await this.espacosEsportivosService.findOne(
       partida.espacoId,
     );
+
+    if (!ValidationUtil.isFutureDate(updatePartidaDto.data_inicio_locacao)) {
+      throw new BadRequestException(
+        'Data Inicio não é maior que a data de hoje!',
+      );
+    }
+
+    if (
+      !ValidationUtil.isCompareDate(
+        updatePartidaDto.data_inicio_locacao,
+        updatePartidaDto.data_final_locacao,
+      )
+    ) {
+      throw new BadRequestException(
+        'Data Final deve ser maior que a data inicial!',
+      );
+    }
 
     const duracao_horas = DateUtil.calculateHourDifference(
       updatePartidaDto.data_final_locacao,
