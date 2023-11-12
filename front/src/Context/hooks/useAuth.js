@@ -9,6 +9,7 @@ export default function useAuth() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
+  const [userProfile, setUserProfile] = useState();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -24,6 +25,7 @@ export default function useAuth() {
     try {
       const { data } = await api.get("/auth/me");
       setUser(data);
+      setUserProfile(data.perfil);
     } catch (error) {
       console.log(error);
     }
@@ -50,5 +52,5 @@ export default function useAuth() {
     navigate("/login");
   }
   
-  return { authenticated, user, handleLogin, handleLogout, loading };
+  return { authenticated, user, userProfile, handleLogin, handleLogout, loading };
 }
