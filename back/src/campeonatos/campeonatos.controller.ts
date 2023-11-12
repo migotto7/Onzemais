@@ -7,12 +7,15 @@ import {
   Param,
   ParseIntPipe,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CampeonatosService } from './campeonatos.service';
 import { CreateCampeonatoDto } from './dto/create-campeonato.dto';
 import { UpdateCampeonatoDto } from './dto/update-campeonato.dto';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('campeonatos')
+@UseGuards(AccessTokenGuard)
 export class CampeonatosController {
   constructor(private readonly campeonatosService: CampeonatosService) {}
 

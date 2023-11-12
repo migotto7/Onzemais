@@ -8,9 +8,10 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { AlugueisColetesModule } from './alugueis_coletes/alugueis_coletes.module';
 import { CampeonatosModule } from './campeonatos/campeonatos.module';
 import { PartidasModule } from './partidas/partidas.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PrismaModule, EmpresasModule, EspacosEsportivosModule, ColetesModule, LocacoesModule, UsuariosModule, AlugueisColetesModule, CampeonatosModule, PartidasModule],
+  imports: [PrismaModule, EmpresasModule, EspacosEsportivosModule, ColetesModule, LocacoesModule, UsuariosModule, AlugueisColetesModule, CampeonatosModule, PartidasModule, AuthModule],
   controllers: [],
   providers: [],
 })

@@ -7,12 +7,15 @@ import {
   Param,
   ParseIntPipe,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PartidasService } from './partidas.service';
 import { CreatePartidaDto } from './dto/create-partida.dto';
 import { UpdatePartidaDto } from './dto/update-partida.dto';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('partidas')
+@UseGuards(AccessTokenGuard)
 export class PartidasController {
   constructor(private readonly partidasService: PartidasService) {}
 

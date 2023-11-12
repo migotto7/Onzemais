@@ -7,12 +7,15 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { EspacosEsportivosService } from './espacos-esportivos.service';
 import { CreateEspacosEsportivoDto } from './dto/create-espacos-esportivo.dto';
 import { UpdateEspacosEsportivoDto } from './dto/update-espacos-esportivo.dto';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('espacos-esportivos')
+@UseGuards(AccessTokenGuard)
 export class EspacosEsportivosController {
   constructor(
     private readonly espacosEsportivosService: EspacosEsportivosService,

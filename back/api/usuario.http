@@ -9,10 +9,10 @@ POST http://localhost:3000/usuarios HTTP/1.1
 Content-Type:  application/json
 
 {
-    "senha": ":Lkja;sldkjf",
-    "email": "eduaaasdfrdo@bradial.com.br" ,
-    "nome": "Eduarasdfdo",
-    "perfil": "admin",
+    "senha": "Masef23@!#098",
+    "email": "eduaaasdasdffrdo@bradiasdfal.com.br" ,
+    "nome": "Eduarasdasdffdo",
+    "perfil": "adasdfmin",
     "empresa_id": 2
 }
 
@@ -23,7 +23,8 @@ Content-Type: application/json
 {
     "email": "eduardo@bradial.com.br" ,
     "nome": "Eduarasdfdo",
-    "perfil": "adminasdf"
+    "perfil": "adminasdf",
+    "senha": "Masef23@!#098"
 }
 
 ### Remove

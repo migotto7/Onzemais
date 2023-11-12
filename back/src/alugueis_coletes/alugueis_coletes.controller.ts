@@ -7,12 +7,15 @@ import {
   Delete,
   ParseIntPipe,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { AlugueisColetesService } from './alugueis_coletes.service';
 import { CreateAlugueisColeteDto } from './dto/create-alugueis_colete.dto';
 import { UpdateAlugueisColeteDto } from './dto/update-alugueis_colete.dto';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('alugueis-coletes')
+@UseGuards(AccessTokenGuard)
 export class AlugueisColetesController {
   constructor(
     private readonly alugueisColetesService: AlugueisColetesService,

@@ -7,12 +7,15 @@ import {
   Param,
   ParseIntPipe,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { LocacoesService } from './locacoes.service';
 import { CreateLocacoeDto } from './dto/create-locacoe.dto';
 import { UpdateLocacoeDto } from './dto/update-locacoe.dto';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('locacoes')
+@UseGuards(AccessTokenGuard)
 export class LocacoesController {
   constructor(private readonly locacoesService: LocacoesService) {}
 

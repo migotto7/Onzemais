@@ -1,5 +1,6 @@
 ### FindAll
 GET http://localhost:3000/alugueis-coletes HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsIm5hbWUiOiJFZHVhcmFzZGFzZGZmZG8iLCJwZXJmaWwiOiJhZGFzZGZtaW4iLCJpYXQiOjE2OTk3NDcwMzAsImV4cCI6MTY5OTgzMzQzMH0.YMhhfyuSEUxYWKFsUUjoPV-4-movEacQRqYleu6dS7M
 
 ### FindOne
 GET http://localhost:3000/alugueis-coletes/1 HTTP/1.1
