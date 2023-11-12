@@ -1,0 +1,72 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.mainContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.content{
+   display: flex;
+   align-items: center;
+   margin: 10px 0px;
+   flex-direction: column;
+}
+
+.empresa{
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px 0px 0px;
+    margin: 10px 20px;
+}
+
+.empresa:hover{
+    background-color: #F5F5F5;
+    cursor: pointer;
+}
+
+.divFoto{
+    border-radius: 10px;
+    width: 80px;
+    height: fit-content;
+    display: flex;
+}
+
+.foto{
+    object-fit: contain;
+    width: 100%;
+    aspect-ratio: 3/2;
+    border-radius: 15px;
+}
+
+.divDesc{
+    width: 55%;
+}
+
+.title{
+    font-size: 14px;
+}
+
+.desc{
+    font-size: 12px;
+}
+
+.divContato{
+    width: 25%;
+}
+
+.infoContato,
+.maisInfo{
+    font-size: 12px;
+}
+
