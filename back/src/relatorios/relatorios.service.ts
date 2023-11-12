@@ -8,7 +8,6 @@ export class RelatoriosService {
   calculatePartidaTotalValue(locacao) {
     let total = 0;
     for (const partida of locacao.Partida) {
-      console.log(partida);
       total += partida.valor;
     }
     return total;
@@ -19,7 +18,6 @@ export class RelatoriosService {
     for (const aluguelColete of locacao.AluguelColete) {
       total += aluguelColete.valor_quantidade;
     }
-    console.log(total);
     return total;
   }
 
