@@ -20,6 +20,7 @@ import { EspacosEsportivosController } from './espacos-esportivos/espacos-esport
 import { LocacoesController } from './locacoes/locacoes.controller';
 import { PartidasController } from './partidas/partidas.controller';
 import { UsuariosController } from './usuarios/usuarios.controller';
+import { RelatoriosModule } from './relatorios/relatorios.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { UsuariosController } from './usuarios/usuarios.controller';
     PartidasModule,
     AuthModule,
     LogsModule,
+    RelatoriosModule,
   ],
   controllers: [],
   providers: [],
