@@ -3,6 +3,7 @@ import { message } from 'antd';
 import "./index.css";
 
 import { Context } from "../../Context/AuthContext";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setUsuario] = useState("");
@@ -50,6 +51,9 @@ function Login() {
           <button className="btnLogin" onClick={handleSubimit} type="button">
             Entrar
           </button>
+          <Link to="/signin" className="linkLogin">
+            <p className="lLogin">Não possui conta?</p>
+          </Link>
         </div>
         <footer className="footerLogin">
           <p className="pFooter">Todos os direitos reservados</p>
