@@ -1,10 +1,26 @@
 import React, { useState } from "react";
 import "./index.css";
 import api from "./services/api";
+import { message } from 'antd';
 
 function App() {
   const [email, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const successMessage = (success) => {
+    messageApi.open({
+      type: 'success',
+      content: success,
+    });
+  };
+
+  const errorMessage = (error) => {
+    messageApi.open({
+      type: 'error',
+      content: error,
+    });
+  };
 
   const handleSubimit = async (e) => {
     e.preventDefault();
@@ -12,13 +28,17 @@ function App() {
       const { data } = await api.post("/auth/signin", { username: email, password: senha });
       localStorage.setItem("token", JSON.stringify(data.accessToken));
       console.log(data);
+      successMessage("Logado com sucesso");
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.message)
+       errorMessage(error.response.data.message);
     }
   }
+  
 
   return (
     <div className="mainContainer">
+      {contextHolder}
       <div className="container">
         <div className="header">
           <p>Onzemais</p>
