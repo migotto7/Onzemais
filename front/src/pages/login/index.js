@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import api from "../../services/api";
+import React, { useState, useContext } from "react";
 import { message } from 'antd';
 import "./index.css";
+
+import { Context } from "../../Context/AuthContext";
 
 function Login() {
   const [email, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
+
+  const { handleLogin } = useContext(Context);
 
   const successMessage = (success) => {
     messageApi.open({
@@ -24,15 +27,7 @@ function Login() {
 
   const handleSubimit = async (e) => {
     e.preventDefault();
-    try {
-      const { data } = await api.post("/auth/signin", { username: email, password: senha });
-      localStorage.setItem("token", JSON.stringify(data.accessToken));
-      console.log(data);
-      successMessage("Logado com sucesso");
-    } catch (error) {
-      console.log(error.response.data.message)
-       errorMessage(error.response.data.message);
-    }
+    handleLogin(email, senha, successMessage, errorMessage);
   }
   
 
@@ -46,7 +41,7 @@ function Login() {
         <div className="content">
           <div className="email">
             <p className="pLogin">E-mail</p>
-            <input type="text" value={email} onChange={(e) => setUsuario(e.target.value)} className="inputLogin" />
+            <input type="email" value={email} onChange={(e) => setUsuario(e.target.value)} className="inputLogin" />
           </div>
           <div className="senha">
             <p className="pLogin">Senha</p>
