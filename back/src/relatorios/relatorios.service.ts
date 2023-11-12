@@ -79,6 +79,11 @@ export class RelatoriosService {
       result['locacoesNaoPagas'] = locacoesNaoPagas;
     }
 
+    result['porcentagemLocacoesPagas'] =
+      (locacoesPagas.length / empresa._count.Locacao) * 100;
+    result['porcentagemLocacoesNaoPagas'] =
+      (locacoesNaoPagas.length / empresa._count.Locacao) * 100;
+
     return result;
   }
 }
