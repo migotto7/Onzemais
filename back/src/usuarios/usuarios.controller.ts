@@ -15,7 +15,6 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('usuarios')
-@UseGuards(AccessTokenGuard)
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
@@ -25,16 +24,19 @@ export class UsuariosController {
   }
 
   @Get()
+  @UseGuards(AccessTokenGuard)
   findAll() {
     return this.usuariosService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(AccessTokenGuard)
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.usuariosService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(AccessTokenGuard)
   update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateUsuarioDto: UpdateUsuarioDto,
@@ -43,6 +45,7 @@ export class UsuariosController {
   }
 
   @Delete(':id')
+  @UseGuards(AccessTokenGuard)
   remove(@Param('id', ParseIntPipe) id: string) {
     return this.usuariosService.remove(+id);
   }

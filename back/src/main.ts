@@ -10,7 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Ativar o cors para receber requisões locais
-  app.enableCors();
+  app.enableCors({
+    origin: 'http://localhost:3001',
+  });
 
   // Ativar camadas de proteções
   app.use(helmet());

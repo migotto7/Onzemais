@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/signin HTTP/1.1
 content-type: application/json
 
 {
-    "username": "eduaaasdasdffrdo@bradiasdfal.com.br",
-    "password": "Masef23@!#098"
+    "username": "Teste@teste.com",
+    "password": "Teste@123"
 }
 
 ### Me
