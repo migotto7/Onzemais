@@ -8,6 +8,7 @@ export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -19,21 +20,29 @@ export default function useAuth() {
     setLoading(false);
   }, []);
 
+  const getUser = async () => {
+    try {
+      const { data } = await api.get("/auth/me");
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function handleLogin(email, senha, successFunc, errorFunc){
     try {
       const { data } = await api.post("/auth/signin", { username: email, password: senha });
       localStorage.setItem("token", JSON.stringify(data.accessToken));
       api.defaults.headers.Authorization = `Bearer ${data.accessToken}`;
       setAuthenticated(true);
+      setUser(getUser());
       successFunc("Logado com sucesso!");
       navigate("/privado");
     } catch (error) {
       errorFunc(error.response.data.message);
     }
-    
   }
 
-  
   async function handleLogout(){
     setAuthenticated(false);
     localStorage.removeItem("token");
@@ -41,5 +50,5 @@ export default function useAuth() {
     navigate("/login");
   }
   
-  return { authenticated, handleLogin, handleLogout, loading };
+  return { authenticated, user, handleLogin, handleLogout, loading };
 }
