@@ -3,88 +3,87 @@ CREATE DATABASE onzemais;
 USE onzemais;
 
 CREATE TABLE
-    espaco_esportivo (
-        espaco_id INT PRIMARY KEY,
-        tipo_espaco VARCHAR(255),
-        tamanho VARCHAR(255),
-        capacidade INT,
-        descricao TEXT
-    );
-
-CREATE TABLE
-    empresa (
-        cnpj VARCHAR(255) PRIMARY KEY,
+    empresas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        cnpj VARCHAR(255) UNIQUE,
         cep VARCHAR(255),
         bairro_endereco VARCHAR(255),
         numero_endereco VARCHAR(255),
         rua_endereco VARCHAR(255),
-        horario_comercial VARCHAR(255),
-        nome VARCHAR(255),
-        espaco_id INT,
-        Foreign Key (espaco_id) REFERENCES espaco_esportivo(espaco_id)
-    );
-
-CREATE TABLE
-    usuario(
-        cliente_id INT PRIMARY KEY,
-        senha VARCHAR(255),
-        email VARCHAR(255),
-        nome VARCHAR(255),
-        empresa_cnpj VARCHAR(255),
-        FOREIGN KEY (empresa_cnpj) REFERENCES empresa(cnpj),
-        perfil VARCHAR(255)
-    );
-
-CREATE TABLE
-    locacao (
-        locacao_id INT PRIMARY KEY,
-        data_locacao DATE,
-        valor INT,
-        foi_pago BOOLEAN,
-        cliente_id INT,
-        FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
-    );
-
-CREATE TABLE
-    campeonato (
-        campeonato_id INT PRIMARY KEY,
+        horario_comercial_inicio VARCHAR(255),
+        horario_comercial_final VARCHAR(255),
         nome VARCHAR(255)
     );
 
 CREATE TABLE
-    partida(
-        partida_id INT PRIMARY key,
-        duracao_horas INT,
-        locacao_id INT,
-        espaco_id INT,
-        campeonato_id INT,
-        FOREIGN KEY (locacao_id) REFERENCES locacao(locacao_id),
-        FOREIGN KEY (espaco_id) REFERENCES espaco_esportivo(espaco_id),
-        FOREIGN KEY (campeonato_id) REFERENCES campeonato(campeonato_id)
+    espacos_esportivos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        tamanho VARCHAR(255),
+        capacidade INT,
+        tipo_espaco VARCHAR(255),
+        valor_hora INT,
+        empresa_id INT,
+        FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
     );
 
-CREATE Table
-    colete(
-        colete_id INT PRIMARY key,
+CREATE TABLE
+    coletes (
+        id INT AUTO_INCREMENT PRIMARY KEY,
         cor VARCHAR(255),
-        quantidade INT,
-        empresa_cnpj VARCHAR(255),
-        Foreign Key (empresa_cnpj) REFERENCES empresa(cnpj)
+        valor_quantidade INT,
+        empresa_id INT,
+        FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
     );
 
 CREATE TABLE
-    locacao_colete (
-        locacao_colete_id INT PRIMARY KEY,
-        locacao_id INT,
-        colete_id INT,
-        FOREIGN KEY (locacao_id) REFERENCES locacao(locacao_id),
-        FOREIGN KEY (colete_id) REFERENCES colete(colete_id)
+    usuarios (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        senha VARCHAR(255),
+        email VARCHAR(255) UNIQUE,
+        nome VARCHAR(255),
+        perfil VARCHAR(255),
+        empresa_id INT,
+        FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
     );
 
 CREATE TABLE
-    narracao(
-        narracao_id INT PRIMARY KEY,
-        narradores VARCHAR(255),
-        locacao_id INT,
-        FOREIGN KEY (locacao_id) REFERENCES locacao(locacao_id)
+    locacoes (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        foi_pago BOOLEAN,
+        usuarioId INT,
+        empresa_id INT,
+        FOREIGN KEY (usuarioId) REFERENCES usuarios(id) ON DELETE CASCADE,
+        FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    aluguel_colete (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        coleteId INT,
+        locacaoId INT,
+        data_inicio_locacao DATETIME,
+        data_final_locacao DATETIME,
+        FOREIGN KEY (coleteId) REFERENCES coletes(id) ON DELETE CASCADE,
+        FOREIGN KEY (locacaoId) REFERENCES locacoes(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE
+    campeonatos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nome VARCHAR(255)
+    );
+
+CREATE TABLE
+    partidas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        data_inicio_locacao DATETIME,
+        data_final_locacao DATETIME,
+        duracao_horas INT,
+        locacaoId INT,
+        valor INT,
+        espacoId INT,
+        campeonatoId INT,
+        FOREIGN KEY (locacaoId) REFERENCES locacoes(id) ON DELETE CASCADE,
+        FOREIGN KEY (espacoId) REFERENCES espacos_esportivos(id) ON DELETE CASCADE,
+        FOREIGN KEY (campeonatoId) REFERENCES campeonatos(id) ON DELETE CASCADE
     );

@@ -1,0 +1,24 @@
+### FindAll
+GET http://localhost:3000/campeonatos HTTP/1.1
+
+### FindOne
+GET http://localhost:3000/campeonatos/1 HTTP/1.1
+
+### Create
+POST http://localhost:3000/campeonatos HTTP/1.1
+Content-Type:  application/json
+
+{
+    "nome": "Copa do Mundo 2022"
+}
+
+### Update
+PATCH http://localhost:3000/campeonatos/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "nome": "Copa do Mundo 2022"
+}
+
+### Remove
+DELETE http://localhost:3000/campeonatos/1 HTTP/1.1

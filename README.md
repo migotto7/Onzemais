@@ -2,26 +2,24 @@
 
 #### Backend dev deploy
 
-- Install Python
+- Run mysql
 
-  - [Install link](https://www.python.org/downloads/)
+  - `docker run --name onzemais -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 -d mysql:latest`
 
-- Install Django
+- Set .env info following the .env.ex
 
-  - [Install link](https://www.djangoproject.com/download/)
+- Install Node
 
-- Install Django Rest Framework (DRF)
+- Run npm i
 
-  - pip install djangorestframework
+- npx prisma generate
 
-- Config database
+- npx prisma db push
 
-  - Run MySql server
-  - Config credencials (back/main/main/settings)
+- npm run start:dev
 
-- Run migrations
+### Frontend
 
-  - `python manage.py migrate`
+- npm i
 
-- Create admin user
-  - python manage.py createsuperuser --email admin@example.com --username admin
+- npm start

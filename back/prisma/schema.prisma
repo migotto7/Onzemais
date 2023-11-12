@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Empresa {
+  id                       Int               @id @default(autoincrement())
+  cnpj                     String            @unique
+  cep                      String
+  bairro_endereco          String
+  numero_endereco          String
+  rua_endereco             String
+  horario_comercial_inicio String
+  horario_comercial_final  String
+  nome                     String
+  EspacoEsportivo          EspacoEsportivo[]
+  Colete                   Colete[]
+  Usuario                  Usuario[]
+  Locacao                  Locacao[]
+
+  @@map("empresas")
+}
+
+model EspacoEsportivo {
+  id          Int       @id @default(autoincrement())
+  tamanho     String
+  capacidade  Int
+  tipo_espaco String
+  valor_hora  Int
+  empresa_id  Int
+  empresa     Empresa   @relation(fields: [empresa_id], references: [id], onDelete: Cascade)
+  Partida     Partida[]
+
+  @@map("espacos_esportivos")
+}
+
+model Colete {
+  id               Int             @id @default(autoincrement())
+  cor              String
+  valor_quantidade Int
+  empresa_id       Int
+  empresa          Empresa         @relation(fields: [empresa_id], references: [id], onDelete: Cascade)
+  AluguelColete    AluguelColete[]
+
+  @@map("coletes")
+}
+
+model Usuario {
+  id         Int       @id @default(autoincrement())
+  senha      String
+  email      String    @unique
+  nome       String
+  perfil     String
+  empresa_id Int?
+  empresa    Empresa?  @relation(fields: [empresa_id], references: [id], onDelete: Cascade)
+  Locacao    Locacao[]
+
+  @@map("usuarios")
+}
+
+model Locacao {
+  id            Int             @id @default(autoincrement())
+  foi_pago      Boolean
+  usuarioId     Int
+  usuario       Usuario         @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  empresa_id    Int
+  empresa       Empresa         @relation(fields: [empresa_id], references: [id], onDelete: Cascade)
+  AluguelColete AluguelColete[]
+  Partida       Partida[]
+
+  @@map("locacoes")
+}
+
+model AluguelColete {
+  id                  Int      @id @default(autoincrement())
+  coleteId            Int
+  colete              Colete   @relation(fields: [coleteId], references: [id], onDelete: Cascade)
+  locacaoId           Int
+  locacao             Locacao  @relation(fields: [locacaoId], references: [id], onDelete: Cascade)
+  data_inicio_locacao DateTime
+  data_final_locacao  DateTime
+
+  @@map("aluguel_colete")
+}
+
+model Campeonato {
+  id      Int       @id @default(autoincrement())
+  nome    String
+  Partida Partida[]
+
+  @@map("campeonatos")
+}
+
+model Partida {
+  id                  Int             @id @default(autoincrement())
+  data_inicio_locacao DateTime
+  data_final_locacao  DateTime
+  duracao_horas       Int
+  locacaoId           Int
+  valor               Int
+  locacao             Locacao         @relation(fields: [locacaoId], references: [id], onDelete: Cascade)
+  espacoId            Int
+  espaco              EspacoEsportivo @relation(fields: [espacoId], references: [id], onDelete: Cascade)
+  campeonatoId        Int?
+  campeonato          Campeonato?     @relation(fields: [campeonatoId], references: [id], onDelete: Cascade)
+
+  @@map("partidas")
+}

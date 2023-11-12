@@ -1,0 +1,12 @@
+### Login
+POST http://localhost:3000/auth/signin HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Teste@teste.com",
+    "password": "Teste@123"
+}
+
+### Me
+POST http://localhost:3000/auth/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsIm5hbWUiOiJFZHVhcmFzZGFzZGZmZG8iLCJwZXJmaWwiOiJhZGFzZGZtaW4iLCJpYXQiOjE2OTk3NDcwMzAsImV4cCI6MTY5OTgzMzQzMH0.YMhhfyuSEUxYWKFsUUjoPV-4-movEacQRqYleu6dS7M

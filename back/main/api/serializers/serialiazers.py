@@ -1,2 +1,0 @@
-from serializers.espaco_esportivo import EspacoEsportivoSerializer
-from serializers.empresa import EmpresaSerializer

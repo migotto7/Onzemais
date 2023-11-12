@@ -1,0 +1,32 @@
+### FindAll
+GET http://localhost:3000/espacos-esportivos HTTP/1.1
+
+### FindOne
+GET http://localhost:3000/espacos-esportivos/1 HTTP/1.1
+
+### Create
+POST http://localhost:3000/espacos-esportivos HTTP/1.1
+Content-Type:  application/json
+
+{
+    "tamanho": "1239",
+    "capacidade": 1234,
+    "tipo_espaco": "quadra",
+    "valor_hora": 100,
+    "empresa_id": 2
+}
+
+### Update
+PATCH http://localhost:3000/espacos-esportivos/id HTTP/1.1
+Content-Type: application/json
+
+{
+    "tamanho": "12asdf39",
+    "capacidade": 1212334,
+    "tipo_espaco": "qua124dra",
+    "valor_hora": 100,
+    "empresa_id": 1
+}
+
+### Remove
+DELETE http://localhost:3000/espacos-esportivos/id HTTP/1.1
